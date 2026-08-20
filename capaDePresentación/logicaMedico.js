@@ -8,21 +8,21 @@ formMedico.addEventListener("input", () => {
 });
 
 formMedico.addEventListener("submit", (e) => {
-  xxx
-  xxx
-  xxx
+  e.preventDefault();
+  const nombres = document.getElementById("nombresMedico").ariaValueMax;
+  const apellidos = document.getElementById("apellidosMedico").ariaValueMax;
 
-  xxx
+  const medico = gestionarMedicos.registrarMedico(nombres, apellidos);
 
   // actualizar select
-  xxx
-  xxx
-  xxx
-  xxx
+  const option = document.createElement("option");
+  option.value = medico.id;
+  option.textContent = `${medico.nombres} ${medico.apellidos}`;
+  medicoSelect.appendChild(option);
 
-  xxx
-  xxx
+  formMedico.reset();
+  btnAgregarMedico.disabled = true;
 
-  xxx(`Médico ${medico.nombres} ${medico.apellidos} registrado con éxito`);
+  mostrarNotificacion(`Médico ${medico.nombres} ${medico.apellidos} registrado con éxito`);
 });
 

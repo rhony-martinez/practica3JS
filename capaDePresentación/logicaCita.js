@@ -21,13 +21,13 @@ formCitas.addEventListener("submit", (e) => {
   const medicoSelect=document.getElementById("medicoSelect");
   const pacienteSelect=document.getElementById("pacienteSelect");
 
-  const xxx = parseInt(medicoSelect.value); 
+  const medicoId = parseInt(medicoSelect.value); 
   const pacienteId = parseInt(pacienteSelect.value); 
 
-  console.log("Datos para registrar cita:", { fecha, horaInicio, horaFin, xxx, pacienteId });
+  console.log("Datos para registrar cita:", { fecha, horaInicio, horaFin, medicoId, pacienteId });
   
   try {
-    const cita = gestionarCitas.registrarCita(fecha, horaInicio, horaFin, xxx, pacienteId);
+    const cita = gestionarCitas.registrarCita(fecha, horaInicio, horaFin, medicoId, pacienteId);
     console.log("Cita registrada:", cita);
     // mostrar en tabla
     const fila = document.createElement("tr");
@@ -35,7 +35,7 @@ formCitas.addEventListener("submit", (e) => {
       <td>${cita.fecha}</td>
       <td>${cita.horaInicio}</td>
       <td>${cita.horaFin}</td>
-      <td>${cita.xxx.xxx} ${cita.xxx.xxx}</td>
+      <td>${cita.medico.nombres} ${cita.medico.apellidos}</td>
       <td>${cita.paciente.nombres} ${cita.paciente.apellidos}</td>
     `;
     tablaCitas.appendChild(fila);
