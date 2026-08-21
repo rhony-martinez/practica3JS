@@ -80,6 +80,10 @@ select {
     box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
 
+textarea {
+    resize: none;
+}
+
 button {
     width: 100%;
     padding: 10px;
