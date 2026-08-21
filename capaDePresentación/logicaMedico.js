@@ -9,11 +9,11 @@ formMedico.addEventListener("input", () => {
 
 formMedico.addEventListener("submit", (e) => {
   e.preventDefault();
-  const nombres = document.getElementById("nombresMedico").ariaValueMax;
-  const apellidos = document.getElementById("apellidosMedico").ariaValueMax;
+  const nombres = document.getElementById("nombresMedico").value;
+  const apellidos = document.getElementById("apellidosMedico").value;
 
   const medico = gestionarMedicos.registrarMedico(nombres, apellidos);
-
+  console.log("Médico registrado:", medico);
   // actualizar select
   const option = document.createElement("option");
   option.value = medico.id;
