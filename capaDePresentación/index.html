@@ -9,15 +9,28 @@
   <div id="notificaciones" class="notificaciones-contenedor"></div>
 
   <header class="header-academico">
-    <h1>Sistema de Agendamiento de Citas xxx</h1>
+    <h1>Sistema de Agendamiento de Citas Médicas</h1>
     <p>Universidad del Cauca</p>
     <p>Laboratorio 3 — JavaSript - Manejo del DOM - Arquitectura en Capas</p>
   </header>
 
   <h2>Registrar Médico</h2>
   <form id="formMedico">
-    <input type="text" id="nombresMedico" placeholder="Nombres" required>
-    <input type="text" id="apellidosMedico" placeholder="Apellidos" required>
+    <label for="nombresMedico">Nombres</label>
+    <input type="text" id="nombresMedico" placeholder="Ej. Juan Carlos" required>
+    <label for="apellidosMedico">Apellidos</label>
+    <input type="text" id="apellidosMedico" placeholder="Ej. Pérez López" required>
+    <label for="especialidadMedico">Especialidad</label>
+    <input type="text" id="especialidadMedico" placeholder="Ej. Cardiología" required>
+    <label>Horario de atención</label>
+    <label class="label__atencion" for="horarioAtencion">Desde</label>
+    <input type="time" id="inicioAtencion" required>
+    <label class="label__atencion" for="horarioAtencion">Hasta</label>
+    <input type="time" id="finAtencion" required>
+    <label for="aniosExpMedico">Años de experiencia</label>
+    <input type="number" id="aniosExpMedico" required>
+    <label for="biografiaMedico">Biografía</label>
+    <textarea id="biografiaMedico"></textarea>
     <button type="submit" id="btnAgregarMedico" disabled>Agregar Médico</button>
   </form>
 
