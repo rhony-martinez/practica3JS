@@ -55,7 +55,13 @@ form {
     max-width: 400px;
 }
 
-label {
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-bottom: 0;
+}
+
+label, legend {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -74,6 +80,11 @@ label {
     display: inline;
     font-weight: 100;
     font-size: 14px;
+}
+
+.options--genero {
+    display: inline;
+    margin-bottom: 15px;
 }
 
 input[type="text"],
@@ -165,6 +176,17 @@ table tr:hover {
 
 .notificacion-error {
     background-color: #dc3545;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 12px;
+    font-weight: 100;
+    margin-top: -10px;
+}
+
+.genero--error {
+    margin: 15px 0 0 0;
 }
 
 @keyframes aparecer {

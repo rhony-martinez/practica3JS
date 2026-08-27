@@ -16,28 +16,45 @@
 
   <h2>Registrar Médico</h2>
   <form id="formMedico">
+
     <label for="nombresMedico">Nombres</label>
     <input type="text" id="nombresMedico" placeholder="Ej. Juan Carlos" required>
+    <label class="error" id="errorNombresMedico"></label><br>
+
     <label for="apellidosMedico">Apellidos</label>
     <input type="text" id="apellidosMedico" placeholder="Ej. Pérez López" required>
-    <div class="div--genero">
-      <label>Género</label>
-      <input type="radio" id="masculinoMedico" name="generoMedico" value="masculino">
-      <label class="genero__label" for="masculinoMedico">Masculino</label>
-      <input type="radio" id="femeninoMedico" name="generoMedico" value="femenino">
-      <label class="genero__label" for="femeninoMedico">Femenino</label>
-    </div>
+    <label class="error" id="errorApellidosMedico"></label><br>
+
+    <fieldset class="div--genero">
+      <legend>Género</legend>
+      <div class="options--genero">
+        <input type="radio" id="masculinoMedico" name="generoMedico" value="masculino">
+        <label class="genero__label" for="masculinoMedico">Masculino</label>
+      
+        <input type="radio" id="femeninoMedico" name="generoMedico" value="femenino">
+        <label class="genero__label" for="femeninoMedico">Femenino</label>
+      </div>
+      <label class="error genero--error" id="errorGeneroMedico"></label><br>
+    </fieldset>
+
     <label for="especialidadMedico">Especialidad</label>
     <input type="text" id="especialidadMedico" placeholder="Ej. Cardiología" required>
+    <label class="error" id="errorEspecialidadMedico"></label><br>
+
     <label for="inicioAtencion">Horario de atención</label>
     <label class="label__atencion" for="inicioAtencion">Desde</label>
     <input type="time" id="inicioAtencion" required>
     <label class="label__atencion" for="finAtencion">Hasta</label>
     <input type="time" id="finAtencion" required>
+
     <label for="aniosExpMedico">Años de experiencia</label>
     <input type="number" id="aniosExpMedico" placeholder="0" required>
+    <label class="error" id="errorAniosExpMedico"></label><br>
+
     <label for="biografiaMedico">Biografía (Opcional)</label>
     <textarea id="biografiaMedico" rows="5" maxlength="200" placeholder="Biografía breve (Máx. 200 caracteres)"></textarea>
+    <label class="error" id="errorBiografiaMedico"></label><br>
+
     <button type="submit" id="btnAgregarMedico" disabled>Agregar Médico</button>
   </form>
 
@@ -63,10 +80,14 @@
     <input type="time" id="horaFin" required>
 
     <label for="medicoSelect">Médico</label>
-    <select id="medicoSelect" required></select>
+    <select id="medicoSelect" required>
+      <option value="" disabled selected>Seleccione un médico</option>
+    </select>
 
     <label for="pacienteSelect">Paciente</label>
-    <select id="pacienteSelect" required></select>
+    <select id="pacienteSelect" required>
+      <option value="" disabled selected>Seleccione un paciente</option>
+    </select>
     <button type="submit" id="btnAgregarCita" disabled>Agregar Cita</button>
   </form>
 
