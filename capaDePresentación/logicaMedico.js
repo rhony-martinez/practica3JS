@@ -11,6 +11,7 @@ formMedico.addEventListener("submit", (e) => {
   e.preventDefault();
   const nombres = document.getElementById("nombresMedico").value;
   const apellidos = document.getElementById("apellidosMedico").value;
+  const genero = document.querySelector('input[name="generoMedico"]:checked').value;
   const especialidad = document.getElementById("especialidadMedico").value;
   const inicioAtencion = document.getElementById("inicioAtencion").value;
   const finAtencion = document.getElementById("finAtencion").value;
@@ -18,7 +19,7 @@ formMedico.addEventListener("submit", (e) => {
   const biografiaMedico = document.getElementById("biografiaMedico").value;
 
   try {
-    const medico = gestionarMedicos.registrarMedico(nombres, apellidos, especialidad, inicioAtencion, finAtencion, aniosExpMedico, biografiaMedico);
+    const medico = gestionarMedicos.registrarMedico(nombres, apellidos, genero, especialidad, inicioAtencion, finAtencion, aniosExpMedico, biografiaMedico);
     console.log("Médico registrado:", medico);
     // actualizar select
     const option = document.createElement("option");

@@ -66,6 +66,16 @@ label {
     font-size: 14px;
 }
 
+.div--genero {
+    margin-bottom: 15px;
+}
+
+.genero__label {
+    display: inline;
+    font-weight: 100;
+    font-size: 14px;
+}
+
 input[type="text"],
 input[type="date"],
 input[type="time"],

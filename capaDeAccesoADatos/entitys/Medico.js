@@ -1,8 +1,9 @@
 class Medico {
-  constructor(id, nombres, apellidos, especialidad, inicioAtencion, finAtencion, aniosExp, biografia) {
+  constructor(id, nombres, apellidos, genero, especialidad, inicioAtencion, finAtencion, aniosExp, biografia) {
     this.id = id;
     this.nombres = nombres;
     this.apellidos = apellidos;
+    this.genero = genero;
     this.especialidad = especialidad;
     this.horarioAtencion = {
       inicio: inicioAtencion,

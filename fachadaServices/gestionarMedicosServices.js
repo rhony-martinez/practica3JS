@@ -3,14 +3,14 @@ class GestionarMedicos {
     this.repoMedico = repoMedico;
   }
 
-  registrarMedico(nombre, apellido, especialidad, inicioAtencion, finAtencion, aniosExp, biografia) {
+  registrarMedico(nombre, apellido, genero, especialidad, inicioAtencion, finAtencion, aniosExp, biografia) {
     const id = this.repoMedico.siguienteId();
     const inicioMedicoMinutos = convertirAMinutos(inicioAtencion);
     const finMedicoMinutos = convertirAMinutos(finAtencion);
     if (inicioMedicoMinutos >= finMedicoMinutos) {
       throw new Error("La hora de inicio debe ser mayor a la hora fin")
     }
-    const medico = new Medico(id, nombre, apellido, especialidad, inicioAtencion, finAtencion, aniosExp, biografia)
+    const medico = new Medico(id, nombre, apellido, genero, especialidad, inicioAtencion, finAtencion, aniosExp, biografia)
     
     this.repoMedico.agregar(medico);
     return medico;
