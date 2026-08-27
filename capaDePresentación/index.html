@@ -22,7 +22,7 @@
     <input type="text" id="apellidosMedico" placeholder="Ej. Pérez López" required>
     <label for="especialidadMedico">Especialidad</label>
     <input type="text" id="especialidadMedico" placeholder="Ej. Cardiología" required>
-    <label>Horario de atención</label>
+    <label for="inicioAtencion">Horario de atención</label>
     <label class="label__atencion" for="inicioAtencion">Desde</label>
     <input type="time" id="inicioAtencion" required>
     <label class="label__atencion" for="finAtencion">Hasta</label>
@@ -36,8 +36,10 @@
 
   <h2>Registrar Paciente</h2>
   <form id="formPaciente">
-    <input type="text" id="nombresPaciente" placeholder="Nombres" required>
-    <input type="text" id="apellidosPaciente" placeholder="Apellidos" required>
+    <label for="nombresPaciente">Nombres</label>
+    <input type="text" id="nombresPaciente" placeholder="Ej. Rosa Maria" required>
+    <label for="apellidosPaciente">Apellidos</label>
+    <input type="text" id="apellidosPaciente" placeholder="Ej. Gómez Mora" required>
     <button type="submit" id="btnAgregarPaciente" disabled>Agregar Paciente</button>
   </form>
 
@@ -101,6 +103,7 @@
   <script src="logicaMedico.js"></script>
   <script src="logicaPaciente.js"></script>
   <script src="logicaCita.js"></script>
+  <script src="validaciones.js"></script>
 
 
 </body>
