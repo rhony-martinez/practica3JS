@@ -17,17 +17,21 @@ formMedico.addEventListener("submit", (e) => {
   const aniosExpMedico = document.getElementById("aniosExpMedico").value;
   const biografiaMedico = document.getElementById("biografiaMedico").value;
 
-  const medico = gestionarMedicos.registrarMedico(nombres, apellidos, especialidad, inicioAtencion, finAtencion, aniosExpMedico, biografiaMedico);
-  console.log("Médico registrado:", medico);
-  // actualizar select
-  const option = document.createElement("option");
-  option.value = medico.id;
-  option.textContent = `${medico.nombres} ${medico.apellidos}`;
-  medicoSelect.appendChild(option);
-
-  formMedico.reset();
-  btnAgregarMedico.disabled = true;
-
-  mostrarNotificacion(`Médico ${medico.nombres} ${medico.apellidos} registrado con éxito`);
+  try {
+    const medico = gestionarMedicos.registrarMedico(nombres, apellidos, especialidad, inicioAtencion, finAtencion, aniosExpMedico, biografiaMedico);
+    console.log("Médico registrado:", medico);
+    // actualizar select
+    const option = document.createElement("option");
+    option.value = medico.id;
+    option.textContent = `${medico.nombres} ${medico.apellidos}`;
+    medicoSelect.appendChild(option);
+    
+    formMedico.reset();
+    btnAgregarMedico.disabled = true;
+    
+    mostrarNotificacion(`Médico ${medico.nombres} ${medico.apellidos} registrado con éxito`);
+  } catch (error) {
+    mostrarNotificacion(error.message, "error")
+  }
 });
 
