@@ -4,6 +4,18 @@ function convertirAMinutos(hora) {
   return horas * 60 + minutos;
 }
 
+function validarHoras(inicio, fin, errorElement, mensaje) {
+    const inicioMinutos = convertirAMinutos(inicio.value) 
+    const finMinutos = convertirAMinutos(fin.value)
+    if (inicioMinutos >= finMinutos) {
+        errorElement.textContent = mensaje;
+        return false;
+    } else {
+        errorElement.textContent = '';
+        return true;
+    }
+}
+
 function validarCampoObligatorio(campo, errorElement, mensaje) {
     if (campo.value.trim() === '') {
         errorElement.textContent = mensaje;
@@ -77,6 +89,8 @@ function validarFormularioMedico() {
     const inputApellidosMedico = document.getElementById('apellidosMedico');
     const inputGenero = document.getElementsByName('generoMedico');
     const inputEspecialidadMedico = document.getElementById('especialidadMedico');
+    const inputInicioAtencion = document.getElementById('inicioAtencion');
+    const inputFinAtencion = document.getElementById('finAtencion');
     const inputAniosExpMedico = document.getElementById('aniosExpMedico');
     const inputBiografiaMedico = document.getElementById('biografiaMedico');
 
@@ -84,6 +98,7 @@ function validarFormularioMedico() {
     const labelErrorApellidosMedico=document.getElementById('errorApellidosMedico');
     const labelErrorGenero=document.getElementById('errorGeneroMedico');
     const labelErrorEspecialidadMedico=document.getElementById('errorEspecialidadMedico');
+    const labelErrorHorarioMedico=document.getElementById('errorHorarioMedico')
     const labelErrorAniosExpMedico=document.getElementById('errorAniosExpMedico');
     const labelErrorBiografiaMedico=document.getElementById('errorBiografiaMedico');
 
@@ -91,11 +106,12 @@ function validarFormularioMedico() {
     const apellidosMedicoValidos = validarCampoObligatorio(inputApellidosMedico,labelErrorApellidosMedico, "Los apellidos son obligatorios");
     const generoValido = validarGenero(inputGenero,labelErrorGenero,'El género es obligatorio' );
     const especialidadValida = validarLongitud(inputEspecialidadMedico,labelErrorEspecialidadMedico , 1, 20, 'La especialidad debe tener entre 1 y 20 caracteres');
+    const atencionValida = validarHoras(inputInicioAtencion, inputFinAtencion, labelErrorHorarioMedico, 'La hora fin debe ser mayor a la de inicio');
     //const aniosExpValidos = validarLongitud(inputAniosExpMedico,labelErrorAniosExpMedico , 1, 20, 'El apellido debe tener entre 1 y 20 caracteres');
     const biografiaValida = validarLongitud(inputBiografiaMedico, labelErrorBiografiaMedico,0, 200, 'La biografía tiene máximo 200 caracteres');
 
     // Si todas las validaciones son correctas, se devuelve true y se puede enviar el formulario al servidor
-    if (nombresMedicoValidos && apellidosMedicoValidos && generoValido && especialidadValida && biografiaValida) {
+    if (nombresMedicoValidos && apellidosMedicoValidos && generoValido && especialidadValida && biografiaValida && atencionValida) {
         mostrarMensajeExito(); 
         const formulario = document.getElementById('formMedico'); 
         formulario.scrollIntoView({ behavior: "smooth", block: "start" });        
