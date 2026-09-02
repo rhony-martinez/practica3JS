@@ -3,12 +3,17 @@ const medicoSelect = document.getElementById("medicoSelect");
 const btnAgregarMedico = document.getElementById("btnAgregarMedico");
 
 // habilita/deshabilita el botón según la validez del formulario
-formMedico.addEventListener("input", () => {
-  btnAgregarMedico.disabled = !formMedico.checkValidity();
-});
+// formMedico.addEventListener("input", () => {
+//   btnAgregarMedico.disabled = !formMedico.checkValidity();
+// });
 
 formMedico.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault();  
+
+  if (!validarFormularioMedico()) {
+    return;
+  }
+
   const nombres = document.getElementById("nombresMedico").value;
   const apellidos = document.getElementById("apellidosMedico").value;
   const genero = document.querySelector('input[name="generoMedico"]:checked').value;
@@ -19,6 +24,7 @@ formMedico.addEventListener("submit", (e) => {
   const biografiaMedico = document.getElementById("biografiaMedico").value;
 
   try {
+    
     const medico = gestionarMedicos.registrarMedico(nombres, apellidos, genero, especialidad, inicioAtencion, finAtencion, aniosExpMedico, biografiaMedico);
     console.log("Médico registrado:", medico);
     // actualizar select
@@ -28,7 +34,7 @@ formMedico.addEventListener("submit", (e) => {
     medicoSelect.appendChild(option);
     
     formMedico.reset();
-    btnAgregarMedico.disabled = true;
+    //btnAgregarMedico.disabled = true;
     
     mostrarNotificacion(`Médico ${medico.nombres} ${medico.apellidos} registrado con éxito`);
   } catch (error) {

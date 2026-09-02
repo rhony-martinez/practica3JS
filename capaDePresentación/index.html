@@ -15,7 +15,7 @@
   </header>
 
   <h2>Registrar Médico</h2>
-  <form id="formMedico">
+  <form id="formMedico" novalidate>
 
     <label for="nombresMedico">Nombres</label>
     <input type="text" id="nombresMedico" placeholder="Ej. Juan Carlos" required>
@@ -55,7 +55,7 @@
     <textarea id="biografiaMedico" rows="5" maxlength="200" placeholder="Biografía breve (Máx. 200 caracteres)"></textarea>
     <label class="error" id="errorBiografiaMedico"></label><br>
 
-    <button type="submit" id="btnAgregarMedico" disabled>Agregar Médico</button>
+    <button type="submit" id="btnAgregarMedico">Agregar Médico</button> <!--Aquí eliminamos disabled-->
   </form>
 
   <h2>Registrar Paciente</h2>
@@ -64,7 +64,7 @@
     <input type="text" id="nombresPaciente" placeholder="Ej. Rosa Maria" required>
     <label for="apellidosPaciente">Apellidos</label>
     <input type="text" id="apellidosPaciente" placeholder="Ej. Gómez Mora" required>
-    <button type="submit" id="btnAgregarPaciente" disabled>Agregar Paciente</button>
+    <button type="submit" id="btnAgregarPaciente">Agregar Paciente</button> <!--Aquí eliminamos disabled-->
   </form>
 
   <h2>Registrar citas medicas</h2>
@@ -88,7 +88,7 @@
     <select id="pacienteSelect" required>
       <option value="" disabled selected>Seleccione un paciente</option>
     </select>
-    <button type="submit" id="btnAgregarCita" disabled>Agregar Cita</button>
+    <button type="submit" id="btnAgregarCita">Agregar Cita</button>  <!--Aquí eliminamos disabled-->
   </form>
 
   <h2>Citas Registradas</h2>

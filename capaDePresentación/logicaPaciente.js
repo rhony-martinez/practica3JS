@@ -3,9 +3,9 @@ const pacienteSelect = document.getElementById("pacienteSelect");
 const btnAgregarPaciente = document.getElementById("btnAgregarPaciente");
 
 // habilita/deshabilita el botón según la validez del formulario
-formPaciente.addEventListener("input", () => {
-  btnAgregarPaciente.disabled = !formPaciente.checkValidity();
-});
+// formPaciente.addEventListener("input", () => {
+//   btnAgregarPaciente.disabled = !formPaciente.checkValidity();
+// });
 
 formPaciente.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -21,7 +21,7 @@ formPaciente.addEventListener("submit", (e) => {
   pacienteSelect.appendChild(option);
 
   formPaciente.reset();
-  btnAgregarPaciente.disabled = true;
+  //btnAgregarPaciente.disabled = true;
 
   mostrarNotificacion(`Paciente ${paciente.nombres} ${paciente.apellidos} registrado con éxito`);
 });

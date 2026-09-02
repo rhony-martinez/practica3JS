@@ -4,9 +4,9 @@ const btnAgregarCita = document.getElementById("btnAgregarCita");
 
 // habilita/deshabilita el botón según la validez del formulario
 // ("change" cubre los <select>, que no siempre disparan "input")
-formCitas.addEventListener("input", () => {
-  btnAgregarCita.disabled = !formCitas.checkValidity();
-});
+// formCitas.addEventListener("input", () => {
+//   btnAgregarCita.disabled = !formCitas.checkValidity();
+// });
 formCitas.addEventListener("change", () => {
   btnAgregarCita.disabled = !formCitas.checkValidity();
 });
@@ -41,7 +41,7 @@ formCitas.addEventListener("submit", (e) => {
     tablaCitas.appendChild(fila);
 
     formCitas.reset();
-    btnAgregarCita.disabled = true;
+    //btnAgregarCita.disabled = true;
 
     mostrarNotificacion("Cita registrada con éxito");
   } catch (error) {

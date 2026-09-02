@@ -71,7 +71,7 @@ function mostrarMensajeExito() {
 }
 
 // Función principal que valida todo el formulario
-function validarFormulario() {
+function validarFormularioMedico() {
 
     const inputNombresMedico = document.getElementById('nombresMedico');
     const inputApellidosMedico = document.getElementById('apellidosMedico');
@@ -102,10 +102,9 @@ function validarFormulario() {
         setTimeout(() => {
             formulario.reset();
         }, 2000);
-        return false; // Evita el envío del formulario
+        return true; // false cambiado que Evitaba el envío del formulario
     } else {
-    
-        alert('Por favor, complete correctamente el formulario.');
+        mostrarNotificacion("Por favor, complete correctamente el formulario", "error")
         return false; // Bloquea el envío del formulario
     }
 }
