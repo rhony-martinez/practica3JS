@@ -200,8 +200,8 @@ function validarFormularioMedico() {
     const labelErrorHorarioMedico=document.getElementById('errorHorarioMedico')
     const labelErrorAniosExpMedico=document.getElementById('errorAniosExpMedico');
 
-    const nombresMedicoValidos=validarCampoObligatorio(inputNombresMedico,labelErrorNombresMedico,"El campo nombres es obligatorio");
-    const apellidosMedicoValidos = validarCampoObligatorio(inputApellidosMedico,labelErrorApellidosMedico, "Los apellidos son obligatorios");
+    const nombresMedicoValidos=validarCampoObligatorio(inputNombresMedico,labelErrorNombresMedico,"El campo nombres es obligatorio") && validarLongitud(inputNombresMedico,labelErrorNombresMedico,0,25,"Longitud del nombre no válida");
+    const apellidosMedicoValidos = validarCampoObligatorio(inputApellidosMedico,labelErrorApellidosMedico, "Los apellidos son obligatorios") && validarLongitud(inputApellidosMedico,labelErrorApellidosMedico,0,25,"Longitud del apellido no válida");
     const generoValido = validarGenero(inputGenero,labelErrorGenero,'El género es obligatorio' );
     const especialidadValida = validarCampoObligatorio(inputEspecialidadMedico,labelErrorEspecialidadMedico,"La especialidad es obligatoria") && validarLongitud(inputEspecialidadMedico,labelErrorEspecialidadMedico , 1, 20, 'La especialidad debe tener entre 1 y 20 caracteres');
     const inicioAtencionValida = validarCampoObligatorio(inputInicioAtencion,labelErrorInicioAtencion,"La hora de inicio de atención es obligatoria");
@@ -244,9 +244,9 @@ function validarCamposMedicoAlCambiarFoco() {
     inputNombresMedico.addEventListener('blur',()=> validarCampoObligatorio(
         inputNombresMedico,
         labelErrorNombresMedico,
-        "El nombre es obligatorio"));
+        "El nombre es obligatorio") && validarLongitud(inputNombresMedico,labelErrorNombresMedico,0,25,"Longitud del nombre no válida"));
         
-    inputApellidosMedico.addEventListener('blur', () => validarCampoObligatorio(inputApellidosMedico, labelErrorApellidosMedico, 'Los apellidos son obligatorios.'));
+    inputApellidosMedico.addEventListener('blur', () => validarCampoObligatorio(inputApellidosMedico, labelErrorApellidosMedico, 'Los apellidos son obligatorios.') && validarLongitud(inputApellidosMedico,labelErrorApellidosMedico,0,25,"Longitud del apellido no válida"));
     Array.from(inputGenero).forEach(input => input.addEventListener('blur', () => validarGenero(inputGenero, labelErrorGenero,'El género es obligatorio')));
     inputEspecialidadMedico.addEventListener('blur', () => validarCampoObligatorio(inputEspecialidadMedico,labelErrorEspecialidadMedico,"La especialidad es obligatoria") && validarLongitud(inputEspecialidadMedico, labelErrorEspecialidadMedico, 1, 20, 'La especialidad debe tener entre 1 y 20 caracteres.'));
     inputInicioAtencion.addEventListener('blur', () => validarCampoObligatorio(inputInicioAtencion,labelErrorInicioAtencion,"La hora de inicio de atención es obligatoria"));
@@ -272,8 +272,8 @@ function validarFormularioPaciente() {
     const labelErrorEdadPaciente=document.getElementById('errorEdadPaciente');
     const labelErrorEmailPaciente=document.getElementById('errorEmailPaciente');
 
-    const nombresPacienteValidos=validarCampoObligatorio(inputNombresPaciente,labelErrorNombresPaciente,"El campo nombres es obligatorio");
-    const apellidosPacienteValidos = validarCampoObligatorio(inputApellidosPaciente,labelErrorApellidosPaciente, "Los apellidos son obligatorios");
+    const nombresPacienteValidos=validarCampoObligatorio(inputNombresPaciente,labelErrorNombresPaciente,"El campo nombres es obligatorio")  && validarLongitud(inputNombresPaciente,labelErrorNombresPaciente,0,20,"Longitud del nombre no válida");
+    const apellidosPacienteValidos = validarCampoObligatorio(inputApellidosPaciente,labelErrorApellidosPaciente, "Los apellidos son obligatorios") && validarLongitud(inputApellidosPaciente,labelErrorApellidosPaciente,0,20,"Longitud del apellido no válida");
     const generoValido = validarGenero(inputGenero,labelErrorGenero,'El género es obligatorio' );
     const edadValida = validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria') && validarNumericos(inputEdadPaciente,labelErrorEdadPaciente,0,200,"Valor no válido para la edad");
     const emailValido = validarCampoObligatorio(inputEmailPaciente,labelErrorEmailPaciente, "El correo electrónico es obligatorio") && validarCorreo(inputEmailPaciente,labelErrorEmailPaciente,"El correo no cumple con el formato esperado");
@@ -310,9 +310,9 @@ function validarCamposPacienteAlCambiarFoco() {
     inputNombresPaciente.addEventListener('blur',()=> validarCampoObligatorio(
         inputNombresPaciente,
         labelErrorNombresPaciente,
-        "El nombre es obligatorio"));
+        "El nombre es obligatorio") && validarLongitud(inputNombresPaciente,labelErrorNombresPaciente,0,20,"Longitud del nombre no válida"));
         
-    inputApellidosPaciente.addEventListener('blur', () => validarCampoObligatorio(inputApellidosPaciente, labelErrorApellidosPaciente, 'Los apellidos son obligatorios.'));
+    inputApellidosPaciente.addEventListener('blur', () => validarCampoObligatorio(inputApellidosPaciente, labelErrorApellidosPaciente, 'Los apellidos son obligatorios.') && validarLongitud(inputApellidosPaciente,labelErrorApellidosPaciente,0,20,"Longitud del apellido no válida"));
     Array.from(inputGenero).forEach(input => input.addEventListener('blur', () => validarGenero(inputGenero, labelErrorGenero,'El género es obligatorio')));
     inputEdadPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria') && validarNumericos(inputEdadPaciente,labelErrorEdadPaciente,0,200,"Valor no válido para la edad"));
     inputEmailPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEmailPaciente,labelErrorEmailPaciente, "El correo electrónico es obligatorio") && validarCorreo(inputEmailPaciente,labelErrorEmailPaciente,"El correo no cumple con el formato esperado"));    
@@ -375,6 +375,7 @@ function validarCamposCitaAlCambiarFoco() {
 
     inputFechaCita.addEventListener('blur',()=> validarCampoObligatorio(inputFechaCita,labelErrorFechaCita,"La fecha es obligatoria"));
     inputFechaCita.addEventListener('change',()=> validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy"));
+    inputFechaCita.addEventListener('blur',()=> validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy"));
     inputHoraInicioCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraInicioCita, labelErrorHoraInicioCita, 'La hora de la cita es obligatoria.') && validarAtencionCita(inputFechaCita,inputHoraInicioCita,labelErrorHoraInicioCita,'La cita debe programarse con al menos 3 horas de anticipación'));
     inputHoraFinCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraFinCita, labelErrorHoraFinCita, 'La hora final de la cita es obligatoria.'));
     inputMedicoCita.addEventListener('blur', () => validarCampoObligatorio(inputMedicoCita,labelErrorMedicoCita,"El médico es obligatorio"));
