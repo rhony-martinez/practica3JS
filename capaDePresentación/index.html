@@ -96,26 +96,32 @@
   </form>
 
   <h2>Registrar citas medicas</h2>
-  <form id="formCitas">
+  <form id="formCitas" novalidate>
     
     <label for="fecha">Fecha</label>
     <input type="date" id="fecha" required>
+    <label class="error" id="errorFechaCita"></label><br>
 
     <label for="horaInicio">Hora Inicio</label>
     <input type="time" id="horaInicio" required>
+    <label class="error" id="errorHoraInicioCita"></label><br>
 
     <label for="horaFin">Hora Fin</label>
     <input type="time" id="horaFin" required>
+    <label class="error" id="errorHoraFinCita"></label><br>
 
     <label for="medicoSelect">Médico</label>
     <select id="medicoSelect" required>
       <option value="" disabled selected>Seleccione un médico</option>
     </select>
+    <label class="error" id="errorMedicoCita"></label><br>
 
     <label for="pacienteSelect">Paciente</label>
     <select id="pacienteSelect" required>
       <option value="" disabled selected>Seleccione un paciente</option>
     </select>
+    <label class="error" id="errorPacienteCita"></label><br>
+
     <button type="submit" id="btnAgregarCita">Agregar Cita</button>  <!--Aquí eliminamos disabled-->
   </form>
 

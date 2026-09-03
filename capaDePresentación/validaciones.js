@@ -10,6 +10,10 @@ textarea.addEventListener('input', function () {
     }
 });
 
+// const hoy = new Date().toISOString().split('T')[0];
+
+// document.getElementById('fecha').min = hoy;
+
 function convertirAMinutos(hora) {
     const [horas, minutos] = hora.split(":").map(Number);
 
@@ -27,6 +31,53 @@ function validarHoras(inicio, fin, errorElement, mensaje) {
     } else {
         quitarEstiloCampoError(inicio)
         quitarEstiloCampoError(fin)
+        errorElement.textContent = '';
+        return true;
+    }
+}
+
+function validarFecha(campo, campoHora, campoFinHora, errorElement, mensaje) {
+    console.log("Inicio:", campoHora);
+    console.log("Fin:", campoFinHora);
+    if (campo.value === '') {
+        campoHora.disabled = true;
+        campoFinHora.disabled = true;
+        return false;
+    }
+
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    const fechaSeleccionada = new Date(`${campo.value}T00:00:00`);
+
+    if (fechaSeleccionada < hoy) {
+        estilizarCampoError(campo);
+        errorElement.textContent = mensaje;
+        campoHora.disabled = true;
+        campoFinHora.disabled=true;
+        return false;
+    } else {
+        quitarEstiloCampoError(campo);
+        errorElement.textContent = '';
+        campoHora.disabled = false;
+        campoFinHora.disabled = false;
+        return true;
+    }
+}
+
+function validarAtencionCita(fecha, hora, errorElement, mensaje) {
+    
+    const fechaHoraCita = new Date(`${fecha.value}T${hora.value}`);
+
+    const ahora = new Date();
+    const minimo = new Date(ahora.getTime() + 3 * 60 * 60 * 1000);
+
+    if (fechaHoraCita < minimo) {
+        estilizarCampoError(hora);
+        errorElement.textContent = mensaje;
+        return false;
+    } else {
+        quitarEstiloCampoError(hora);
         errorElement.textContent = '';
         return true;
     }
@@ -161,8 +212,7 @@ function validarFormularioMedico() {
     }
 }
 
-function validarCamposMedicoAlCambiarFoco()
-{
+function validarCamposMedicoAlCambiarFoco() {
     const inputNombresMedico = document.getElementById('nombresMedico');
     const inputApellidosMedico = document.getElementById('apellidosMedico');
     const inputGenero = document.getElementsByName('generoMedico');
@@ -232,8 +282,7 @@ function validarFormularioPaciente() {
     }
 }
 
-function validarCamposPacienteAlCambiarFoco()
-{
+function validarCamposPacienteAlCambiarFoco() {
     const inputNombresPaciente = document.getElementById('nombresPaciente');
     const inputApellidosPaciente = document.getElementById('apellidosPaciente');
     const inputGenero = document.getElementsByName('generoPaciente');
@@ -259,3 +308,65 @@ function validarCamposPacienteAlCambiarFoco()
 }
 
 document.addEventListener('DOMContentLoaded', validarCamposPacienteAlCambiarFoco);
+
+
+// Función principal que valida todo el formulario de registro de citas
+function validarFormularioCita() {
+
+    const inputFechaCita = document.getElementById('fecha');
+    const inputHoraInicioCita = document.getElementById('horaInicio');
+    const inputHoraFinCita = document.getElementById('horaFin');
+    const inputMedicoCita = document.getElementById('medicoSelect');
+    const inputPacienteCita = document.getElementById('pacienteSelect');
+
+    const labelErrorFechaCita=document.getElementById('errorFechaCita');
+    const labelErrorHoraInicioCita=document.getElementById('errorHoraInicioCita');
+    const labelErrorHoraFinCita=document.getElementById('errorHoraFinCita');
+    const labelErrorMedicoCita=document.getElementById('errorMedicoCita');
+    const labelErrorPacienteCita=document.getElementById('errorPacienteCita');
+
+    const fechaValida = validarCampoObligatorio(inputFechaCita,labelErrorFechaCita,'La fecha de la cita es obligatoria') && validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy");
+    const horaValida = validarCampoObligatorio(inputHoraInicioCita,labelErrorHoraInicioCita,'La hora de la cita es obligatoria');
+    const atencionCitaValida = fechaValida && horaValida && validarAtencionCita(inputFechaCita,inputHoraInicioCita,labelErrorHoraInicioCita,'La cita debe programarse con al menos 3 horas de anticipación');
+    const horaFinValida = validarCampoObligatorio(inputHoraFinCita,labelErrorHoraFinCita,'La hora de la cita es obligatoria');
+    const horasValidas = validarHoras(inputHoraInicioCita,inputFechaCita,labelErrorHoraFinCita,"La hora de fin de la cita debe ser mayor a la de inicio");
+    const medicoValido = validarCampoObligatorio(inputMedicoCita,labelErrorMedicoCita,"El médico es obligatorio");
+    const pacienteValido = validarCampoObligatorio(inputPacienteCita,labelErrorPacienteCita,"El paciente es obligatorio");
+
+    // Si todas las validaciones son correctas, se devuelve true y se puede enviar el formulario al servidor
+    if (fechaValida && horaValida && atencionCitaValida && horaFinValida && horasValidas && medicoValido && pacienteValido) {
+        // mostrarMensajeExito(); 
+        // const formulario = document.getElementById('formMedico'); 
+        // formulario.scrollIntoView({ behavior: "smooth", block: "start" });        
+        // setTimeout(() => {
+        //     formulario.reset();
+        // }, 2000);
+        return true; // false cambiado que Evitaba el envío del formulario
+    } else {
+        mostrarNotificacion("Por favor, complete correctamente el formulario", "error")
+        return false; // Bloquea el envío del formulario
+    }
+}
+
+function validarCamposCitaAlCambiarFoco() {
+    const inputFechaCita = document.getElementById('fecha');
+    const inputHoraInicioCita = document.getElementById('horaInicio');
+    const inputHoraFinCita = document.getElementById('horaFin');
+    const inputMedicoCita = document.getElementById('medicoSelect');
+    const inputPacienteCita = document.getElementById('pacienteSelect');
+
+    const labelErrorFechaCita=document.getElementById('errorFechaCita');
+    const labelErrorHoraInicioCita=document.getElementById('errorHoraInicioCita');
+    const labelErrorHoraFinCita=document.getElementById('errorHoraFinCita');
+    const labelErrorMedicoCita=document.getElementById('errorMedicoCita');
+    const labelErrorPacienteCita=document.getElementById('errorPacienteCita');
+
+    inputFechaCita.addEventListener('blur',()=> validarCampoObligatorio(inputFechaCita,labelErrorFechaCita,'La fecha de la cita es obligatoria') && validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy"));
+    inputHoraInicioCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraInicioCita, labelErrorHoraInicioCita, 'La hora de la cita es obligatoria.'));
+    inputHoraFinCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraFinCita, labelErrorHoraFinCita, 'La hora final de la cita es obligatoria.'));
+    inputMedicoCita.addEventListener('blur', () => validarCampoObligatorio(inputMedicoCita,labelErrorMedicoCita,"El médico es obligatorio"));
+    inputPacienteCita.addEventListener('blur', () => validarCampoObligatorio(inputPacienteCita,labelErrorPacienteCita,"El paciente es obligatorio"));
+    
+}
+
+document.addEventListener('DOMContentLoaded', validarCamposCitaAlCambiarFoco);

@@ -7,12 +7,16 @@ const btnAgregarCita = document.getElementById("btnAgregarCita");
 // formCitas.addEventListener("input", () => {
 //   btnAgregarCita.disabled = !formCitas.checkValidity();
 // });
-formCitas.addEventListener("change", () => {
-  btnAgregarCita.disabled = !formCitas.checkValidity();
-});
+// formCitas.addEventListener("change", () => {
+//   btnAgregarCita.disabled = !formCitas.checkValidity();
+// });
 
 formCitas.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  if (!validarFormularioCita()) {
+    return;
+  }
 
   const fecha = document.getElementById("fecha").value;
   const horaInicio = document.getElementById("horaInicio").value;
