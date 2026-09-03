@@ -1,6 +1,8 @@
 const formCitas = document.getElementById("formCitas");
 const tablaCitas = document.getElementById("tablaCitas");
 const btnAgregarCita = document.getElementById("btnAgregarCita");
+const inputInicioCita = document.getElementById("horaInicio");
+const inputFinCita = document.getElementById("horaFin");
 
 // habilita/deshabilita el botón según la validez del formulario
 // ("change" cubre los <select>, que no siempre disparan "input")
@@ -44,6 +46,8 @@ formCitas.addEventListener("submit", (e) => {
     `;
     tablaCitas.appendChild(fila);
 
+    inputInicioCita.disabled = true;
+    inputFinCita.disabled = true;
     formCitas.reset();
     //btnAgregarCita.disabled = true;
 

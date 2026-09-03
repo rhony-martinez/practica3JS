@@ -143,6 +143,18 @@ function validarGenero(genero, errorElement, mensaje) {
     }
 }
 
+function validarNumericos(campo, errorElement, min, max, mensaje) {
+    if (campo.value < min || campo.value > max) {
+        estilizarCampoError(campo);
+        errorElement.textContent = mensaje;
+        return false;
+    } else {
+        quitarEstiloCampoError(campo);
+        errorElement.textContent = '';
+        return true;
+    }
+}
+
 function estilizarCampoError(campo) {
     campo.classList.add("campo-error");
 }
@@ -195,7 +207,7 @@ function validarFormularioMedico() {
     const inicioAtencionValida = validarCampoObligatorio(inputInicioAtencion,labelErrorInicioAtencion,"La hora de inicio de atención es obligatoria");
     const finAtencionValida = validarCampoObligatorio(inputFinAtencion,labelErrorFinAtencion,"La hora de fin de atención es obligatoria");
     const atencionValida = inicioAtencionValida && finAtencionValida && validarHoras(inputInicioAtencion, inputFinAtencion, labelErrorHorarioMedico, 'La hora fin debe ser mayor a la de inicio');
-    const aniosExpValidos = validarCampoObligatorio(inputAniosExpMedico,labelErrorAniosExpMedico,'Los años de experiencia son obligatorios');
+    const aniosExpValidos = validarCampoObligatorio(inputAniosExpMedico,labelErrorAniosExpMedico,'Los años de experiencia son obligatorios') && validarNumericos(inputAniosExpMedico,labelErrorAniosExpMedico,0,100,"Valor no válido para años de experiencia");
 
     // Si todas las validaciones son correctas, se devuelve true y se puede enviar el formulario al servidor
     if (nombresMedicoValidos && apellidosMedicoValidos && generoValido && especialidadValida && inicioAtencionValida && finAtencionValida && atencionValida && aniosExpValidos) {
@@ -239,7 +251,7 @@ function validarCamposMedicoAlCambiarFoco() {
     inputEspecialidadMedico.addEventListener('blur', () => validarCampoObligatorio(inputEspecialidadMedico,labelErrorEspecialidadMedico,"La especialidad es obligatoria") && validarLongitud(inputEspecialidadMedico, labelErrorEspecialidadMedico, 1, 20, 'La especialidad debe tener entre 1 y 20 caracteres.'));
     inputInicioAtencion.addEventListener('blur', () => validarCampoObligatorio(inputInicioAtencion,labelErrorInicioAtencion,"La hora de inicio de atención es obligatoria"));
     inputFinAtencion.addEventListener('blur', () => validarCampoObligatorio(inputFinAtencion,labelErrorFinAtencion,"La hora de fin de atención es obligatoria"));
-    inputAniosExpMedico.addEventListener('blur', () => validarCampoObligatorio(inputAniosExpMedico,labelErrorAniosExpMedico,'Los años de experiencia son obligatorios') && validarLongitud(inputAniosExpMedico, labelErrorAniosExpMedico, 1, 20, 'El apellido debe tener entre 1 y 20 caracteres.'));
+    inputAniosExpMedico.addEventListener('blur', () => validarCampoObligatorio(inputAniosExpMedico,labelErrorAniosExpMedico,'Los años de experiencia son obligatorios') && validarLongitud(inputAniosExpMedico, labelErrorAniosExpMedico, 1, 20, 'El apellido debe tener entre 1 y 20 caracteres.') && validarNumericos(inputAniosExpMedico,labelErrorAniosExpMedico,0,100,"Valor no válido para años de experiencia"));
     
 }
 
@@ -263,7 +275,7 @@ function validarFormularioPaciente() {
     const nombresPacienteValidos=validarCampoObligatorio(inputNombresPaciente,labelErrorNombresPaciente,"El campo nombres es obligatorio");
     const apellidosPacienteValidos = validarCampoObligatorio(inputApellidosPaciente,labelErrorApellidosPaciente, "Los apellidos son obligatorios");
     const generoValido = validarGenero(inputGenero,labelErrorGenero,'El género es obligatorio' );
-    const edadValida = validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria');
+    const edadValida = validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria') && validarNumericos(inputEdadPaciente,labelErrorEdadPaciente,0,200,"Valor no válido para la edad");
     const emailValido = validarCampoObligatorio(inputEmailPaciente,labelErrorEmailPaciente, "El correo electrónico es obligatorio") && validarCorreo(inputEmailPaciente,labelErrorEmailPaciente,"El correo no cumple con el formato esperado");
     
 
@@ -302,7 +314,7 @@ function validarCamposPacienteAlCambiarFoco() {
         
     inputApellidosPaciente.addEventListener('blur', () => validarCampoObligatorio(inputApellidosPaciente, labelErrorApellidosPaciente, 'Los apellidos son obligatorios.'));
     Array.from(inputGenero).forEach(input => input.addEventListener('blur', () => validarGenero(inputGenero, labelErrorGenero,'El género es obligatorio')));
-    inputEdadPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria'));
+    inputEdadPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria') && validarNumericos(inputEdadPaciente,labelErrorEdadPaciente,0,200,"Valor no válido para la edad"));
     inputEmailPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEmailPaciente,labelErrorEmailPaciente, "El correo electrónico es obligatorio") && validarCorreo(inputEmailPaciente,labelErrorEmailPaciente,"El correo no cumple con el formato esperado"));    
     
 }
@@ -361,6 +373,7 @@ function validarCamposCitaAlCambiarFoco() {
     const labelErrorMedicoCita=document.getElementById('errorMedicoCita');
     const labelErrorPacienteCita=document.getElementById('errorPacienteCita');
 
+    inputFechaCita.addEventListener('blur',()=> validarCampoObligatorio(inputFechaCita,labelErrorFechaCita,"La fecha es obligatoria"));
     inputFechaCita.addEventListener('change',()=> validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy"));
     inputHoraInicioCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraInicioCita, labelErrorHoraInicioCita, 'La hora de la cita es obligatoria.') && validarAtencionCita(inputFechaCita,inputHoraInicioCita,labelErrorHoraInicioCita,'La cita debe programarse con al menos 3 horas de anticipación'));
     inputHoraFinCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraFinCita, labelErrorHoraFinCita, 'La hora final de la cita es obligatoria.'));
