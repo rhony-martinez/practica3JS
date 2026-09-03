@@ -1,7 +1,6 @@
 const formMedico = document.getElementById("formMedico");
 const medicoSelect = document.getElementById("medicoSelect");
 const btnAgregarMedico = document.getElementById("btnAgregarMedico");
-const contador = document.getElementById("contador")
 
 // habilita/deshabilita el botón según la validez del formulario
 // formMedico.addEventListener("input", () => {
@@ -35,6 +34,7 @@ formMedico.addEventListener("submit", (e) => {
     medicoSelect.appendChild(option);
     
     contador.textContent = `0/200 caracteres`;
+    contador.style.fontWeight = "normal";
     formMedico.reset();
     //btnAgregarMedico.disabled = true;
     
