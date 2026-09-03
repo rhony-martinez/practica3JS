@@ -103,6 +103,12 @@ select {
 
 textarea {
     resize: none;
+    margin-bottom: 3px;
+}
+
+#contador {
+    margin-top: 0;
+    font-size: 12px;
 }
 
 button {
@@ -187,6 +193,14 @@ table tr:hover {
 
 .genero--error {
     margin: 15px 0 0 0;
+}
+
+.campo-error {
+    border: 1px solid #dc3545 !important;
+}
+
+input[type="time"].campo-error {
+    border: 1px solid #dc3545 !important;
 }
 
 @keyframes aparecer {
