@@ -91,6 +91,7 @@ input[type="text"],
 input[type="date"],
 input[type="time"],
 input[type="number"],
+input[type="email"],
 textarea,
 select {
     width: 100%;
@@ -197,10 +198,12 @@ table tr:hover {
 
 .campo-error {
     border: 1px solid #dc3545 !important;
+    box-shadow: 2px 2px 2px 1px #dc354522 !important;
 }
 
 input[type="time"].campo-error {
     border: 1px solid #dc3545 !important;
+    box-shadow: 2px 2px 2px 1px #dc354522 !important;
 }
 
 @keyframes aparecer {

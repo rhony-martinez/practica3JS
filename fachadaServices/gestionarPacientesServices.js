@@ -3,9 +3,9 @@ class GestionarPacientes {
     this.repoPaciente = repoPaciente;
   }
 
-  registrarPaciente(nombre, apellido) {
+  registrarPaciente(nombre, apellido, genero, edad, email) {
     const id = this.repoPaciente.siguienteId();
-    const paciente = new Paciente(id, nombre, apellido);
+    const paciente = new Paciente(id, nombre, apellido, genero, edad, email);
     this.repoPaciente.agregar(paciente);
     return paciente;
   }

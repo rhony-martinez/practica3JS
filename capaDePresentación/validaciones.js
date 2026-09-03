@@ -58,7 +58,8 @@ function validarLongitud(campo, errorElement, min, max, mensaje) {
 }
 
 function validarCorreo(campo, errorElement,mensaje) {
-    const correoRegex = /^[a-zA-Z0-9._%+-]+@unicauca\.edu\.co$/;
+    const correoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.co$/;
+
     if (!correoRegex.test(campo.value)) {
         estilizarCampoError(campo);
         errorElement.textContent = mensaje;
@@ -116,7 +117,7 @@ function quitarEstiloCampoError(campo) {
 //     }).showToast();
 // }
 
-// Función principal que valida todo el formulario
+// Función principal que valida todo el formulario de registro de médicos
 function validarFormularioMedico() {
 
     const inputNombresMedico = document.getElementById('nombresMedico');
@@ -160,7 +161,7 @@ function validarFormularioMedico() {
     }
 }
 
-function validarCamposAlCambiarFoco()
+function validarCamposMedicoAlCambiarFoco()
 {
     const inputNombresMedico = document.getElementById('nombresMedico');
     const inputApellidosMedico = document.getElementById('apellidosMedico');
@@ -192,4 +193,48 @@ function validarCamposAlCambiarFoco()
     
 }
 
-document.addEventListener('DOMContentLoaded', validarCamposAlCambiarFoco);
+document.addEventListener('DOMContentLoaded', validarCamposMedicoAlCambiarFoco);
+
+// Función principal que valida todo el formulario de registro de pacientes
+function validarFormularioMedico() {
+
+    const inputNombresPaciente = document.getElementById('nombresMedico');
+    const inputApellidosPaciente = document.getElementById('apellidosMedico');
+    const inputGenero = document.getElementsByName('generoMedico');
+    const inputEspecialidadMedico = document.getElementById('especialidadMedico');
+    const inputInicioAtencion = document.getElementById('inicioAtencion');
+    const inputFinAtencion = document.getElementById('finAtencion');
+    const inputAniosExpMedico = document.getElementById('aniosExpMedico');
+
+    const labelErrorNombresMedico=document.getElementById('errorNombresMedico');
+    const labelErrorApellidosMedico=document.getElementById('errorApellidosMedico');
+    const labelErrorGenero=document.getElementById('errorGeneroMedico');
+    const labelErrorEspecialidadMedico=document.getElementById('errorEspecialidadMedico');
+    const labelErrorInicioAtencion=document.getElementById('errorInicioAtencion')
+    const labelErrorFinAtencion=document.getElementById('errorFinAtencion')
+    const labelErrorHorarioMedico=document.getElementById('errorHorarioMedico')
+    const labelErrorAniosExpMedico=document.getElementById('errorAniosExpMedico');
+
+    const nombresMedicoValidos=validarCampoObligatorio(inputNombresMedico,labelErrorNombresMedico,"El campo nombres es obligatorio");
+    const apellidosMedicoValidos = validarCampoObligatorio(inputApellidosMedico,labelErrorApellidosMedico, "Los apellidos son obligatorios");
+    const generoValido = validarGenero(inputGenero,labelErrorGenero,'El género es obligatorio' );
+    const especialidadValida = validarCampoObligatorio(inputEspecialidadMedico,labelErrorEspecialidadMedico,"La especialidad es obligatoria") && validarLongitud(inputEspecialidadMedico,labelErrorEspecialidadMedico , 1, 20, 'La especialidad debe tener entre 1 y 20 caracteres');
+    const inicioAtencionValida = validarCampoObligatorio(inputInicioAtencion,labelErrorInicioAtencion,"La hora de inicio de atención es obligatoria");
+    const finAtencionValida = validarCampoObligatorio(inputFinAtencion,labelErrorFinAtencion,"La hora de fin de atención es obligatoria");
+    const atencionValida = inicioAtencionValida && finAtencionValida && validarHoras(inputInicioAtencion, inputFinAtencion, labelErrorHorarioMedico, 'La hora fin debe ser mayor a la de inicio');
+    const aniosExpValidos = validarCampoObligatorio(inputAniosExpMedico,labelErrorAniosExpMedico,'Los años de experiencia son obligatorios');
+
+    // Si todas las validaciones son correctas, se devuelve true y se puede enviar el formulario al servidor
+    if (nombresMedicoValidos && apellidosMedicoValidos && generoValido && especialidadValida && inicioAtencionValida && finAtencionValida && atencionValida && aniosExpValidos) {
+        // mostrarMensajeExito(); 
+        // const formulario = document.getElementById('formMedico'); 
+        // formulario.scrollIntoView({ behavior: "smooth", block: "start" });        
+        // setTimeout(() => {
+        //     formulario.reset();
+        // }, 2000);
+        return true; // false cambiado que Evitaba el envío del formulario
+    } else {
+        mostrarNotificacion("Por favor, complete correctamente el formulario", "error")
+        return false; // Bloquea el envío del formulario
+    }
+}
