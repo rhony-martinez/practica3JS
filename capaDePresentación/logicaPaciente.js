@@ -9,6 +9,11 @@ const btnAgregarPaciente = document.getElementById("btnAgregarPaciente");
 
 formPaciente.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  if (!validarFormularioPaciente()) {
+    return;
+  }
+
   const nombres = document.getElementById("nombresPaciente").value; 
   const apellidos = document.getElementById("apellidosPaciente").value;
   const genero = document.querySelector('input[name="generoPaciente"]:checked').value;

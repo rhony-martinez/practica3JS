@@ -58,7 +58,7 @@ function validarLongitud(campo, errorElement, min, max, mensaje) {
 }
 
 function validarCorreo(campo, errorElement,mensaje) {
-    const correoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.co$/;
+    const correoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|co)$/;
 
     if (!correoRegex.test(campo.value)) {
         estilizarCampoError(campo);
@@ -196,36 +196,29 @@ function validarCamposMedicoAlCambiarFoco()
 document.addEventListener('DOMContentLoaded', validarCamposMedicoAlCambiarFoco);
 
 // Función principal que valida todo el formulario de registro de pacientes
-function validarFormularioMedico() {
+function validarFormularioPaciente() {
 
-    const inputNombresPaciente = document.getElementById('nombresMedico');
-    const inputApellidosPaciente = document.getElementById('apellidosMedico');
-    const inputGenero = document.getElementsByName('generoMedico');
-    const inputEspecialidadMedico = document.getElementById('especialidadMedico');
-    const inputInicioAtencion = document.getElementById('inicioAtencion');
-    const inputFinAtencion = document.getElementById('finAtencion');
-    const inputAniosExpMedico = document.getElementById('aniosExpMedico');
+    const inputNombresPaciente = document.getElementById('nombresPaciente');
+    const inputApellidosPaciente = document.getElementById('apellidosPaciente');
+    const inputGenero = document.getElementsByName('generoPaciente');
+    const inputEdadPaciente = document.getElementById('edadPaciente');
+    const inputEmailPaciente = document.getElementById('emailPaciente');
 
-    const labelErrorNombresMedico=document.getElementById('errorNombresMedico');
-    const labelErrorApellidosMedico=document.getElementById('errorApellidosMedico');
-    const labelErrorGenero=document.getElementById('errorGeneroMedico');
-    const labelErrorEspecialidadMedico=document.getElementById('errorEspecialidadMedico');
-    const labelErrorInicioAtencion=document.getElementById('errorInicioAtencion')
-    const labelErrorFinAtencion=document.getElementById('errorFinAtencion')
-    const labelErrorHorarioMedico=document.getElementById('errorHorarioMedico')
-    const labelErrorAniosExpMedico=document.getElementById('errorAniosExpMedico');
+    const labelErrorNombresPaciente=document.getElementById('errorNombresPaciente');
+    const labelErrorApellidosPaciente=document.getElementById('errorApellidosPaciente');
+    const labelErrorGenero=document.getElementById('errorGeneroPaciente');
+    const labelErrorEdadPaciente=document.getElementById('errorEdadPaciente');
+    const labelErrorEmailPaciente=document.getElementById('errorEmailPaciente');
 
-    const nombresMedicoValidos=validarCampoObligatorio(inputNombresMedico,labelErrorNombresMedico,"El campo nombres es obligatorio");
-    const apellidosMedicoValidos = validarCampoObligatorio(inputApellidosMedico,labelErrorApellidosMedico, "Los apellidos son obligatorios");
+    const nombresPacienteValidos=validarCampoObligatorio(inputNombresPaciente,labelErrorNombresPaciente,"El campo nombres es obligatorio");
+    const apellidosPacienteValidos = validarCampoObligatorio(inputApellidosPaciente,labelErrorApellidosPaciente, "Los apellidos son obligatorios");
     const generoValido = validarGenero(inputGenero,labelErrorGenero,'El género es obligatorio' );
-    const especialidadValida = validarCampoObligatorio(inputEspecialidadMedico,labelErrorEspecialidadMedico,"La especialidad es obligatoria") && validarLongitud(inputEspecialidadMedico,labelErrorEspecialidadMedico , 1, 20, 'La especialidad debe tener entre 1 y 20 caracteres');
-    const inicioAtencionValida = validarCampoObligatorio(inputInicioAtencion,labelErrorInicioAtencion,"La hora de inicio de atención es obligatoria");
-    const finAtencionValida = validarCampoObligatorio(inputFinAtencion,labelErrorFinAtencion,"La hora de fin de atención es obligatoria");
-    const atencionValida = inicioAtencionValida && finAtencionValida && validarHoras(inputInicioAtencion, inputFinAtencion, labelErrorHorarioMedico, 'La hora fin debe ser mayor a la de inicio');
-    const aniosExpValidos = validarCampoObligatorio(inputAniosExpMedico,labelErrorAniosExpMedico,'Los años de experiencia son obligatorios');
+    const edadValida = validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria');
+    const emailValido = validarCampoObligatorio(inputEmailPaciente,labelErrorEmailPaciente, "El correo electrónico es obligatorio") && validarCorreo(inputEmailPaciente,labelErrorEmailPaciente,"El correo no cumple con el formato esperado");
+    
 
     // Si todas las validaciones son correctas, se devuelve true y se puede enviar el formulario al servidor
-    if (nombresMedicoValidos && apellidosMedicoValidos && generoValido && especialidadValida && inicioAtencionValida && finAtencionValida && atencionValida && aniosExpValidos) {
+    if (nombresPacienteValidos && apellidosPacienteValidos && generoValido && edadValida && emailValido) {
         // mostrarMensajeExito(); 
         // const formulario = document.getElementById('formMedico'); 
         // formulario.scrollIntoView({ behavior: "smooth", block: "start" });        
@@ -238,3 +231,31 @@ function validarFormularioMedico() {
         return false; // Bloquea el envío del formulario
     }
 }
+
+function validarCamposPacienteAlCambiarFoco()
+{
+    const inputNombresPaciente = document.getElementById('nombresPaciente');
+    const inputApellidosPaciente = document.getElementById('apellidosPaciente');
+    const inputGenero = document.getElementsByName('generoPaciente');
+    const inputEdadPaciente = document.getElementById('edadPaciente');
+    const inputEmailPaciente = document.getElementById('emailPaciente');
+
+    const labelErrorNombresPaciente=document.getElementById('errorNombresPaciente');
+    const labelErrorApellidosPaciente=document.getElementById('errorApellidosPaciente');
+    const labelErrorGenero=document.getElementById('errorGeneroPaciente');
+    const labelErrorEdadPaciente=document.getElementById('errorEdadPaciente');
+    const labelErrorEmailPaciente=document.getElementById('errorEmailPaciente');
+
+    inputNombresPaciente.addEventListener('blur',()=> validarCampoObligatorio(
+        inputNombresPaciente,
+        labelErrorNombresPaciente,
+        "El nombre es obligatorio"));
+        
+    inputApellidosPaciente.addEventListener('blur', () => validarCampoObligatorio(inputApellidosPaciente, labelErrorApellidosPaciente, 'Los apellidos son obligatorios.'));
+    Array.from(inputGenero).forEach(input => input.addEventListener('blur', () => validarGenero(inputGenero, labelErrorGenero,'El género es obligatorio')));
+    inputEdadPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEdadPaciente,labelErrorEdadPaciente,'La edad es obligatoria'));
+    inputEmailPaciente.addEventListener('blur', () => validarCampoObligatorio(inputEmailPaciente,labelErrorEmailPaciente, "El correo electrónico es obligatorio") && validarCorreo(inputEmailPaciente,labelErrorEmailPaciente,"El correo no cumple con el formato esperado"));    
+    
+}
+
+document.addEventListener('DOMContentLoaded', validarCamposPacienteAlCambiarFoco);
