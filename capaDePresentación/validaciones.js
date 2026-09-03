@@ -37,9 +37,9 @@ function validarHoras(inicio, fin, errorElement, mensaje) {
 }
 
 function validarFecha(campo, campoHora, campoFinHora, errorElement, mensaje) {
-    console.log("Inicio:", campoHora);
-    console.log("Fin:", campoFinHora);
     if (campo.value === '') {
+        estilizarCampoError(campo);
+        errorElement.textContent = 'La fecha de la cita es obligatoria';
         campoHora.disabled = true;
         campoFinHora.disabled = true;
         return false;
@@ -325,16 +325,16 @@ function validarFormularioCita() {
     const labelErrorMedicoCita=document.getElementById('errorMedicoCita');
     const labelErrorPacienteCita=document.getElementById('errorPacienteCita');
 
-    const fechaValida = validarCampoObligatorio(inputFechaCita,labelErrorFechaCita,'La fecha de la cita es obligatoria') && validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy");
+    const fechaValida = validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy");
     const horaValida = validarCampoObligatorio(inputHoraInicioCita,labelErrorHoraInicioCita,'La hora de la cita es obligatoria');
     const atencionCitaValida = fechaValida && horaValida && validarAtencionCita(inputFechaCita,inputHoraInicioCita,labelErrorHoraInicioCita,'La cita debe programarse con al menos 3 horas de anticipación');
     const horaFinValida = validarCampoObligatorio(inputHoraFinCita,labelErrorHoraFinCita,'La hora de la cita es obligatoria');
-    const horasValidas = validarHoras(inputHoraInicioCita,inputFechaCita,labelErrorHoraFinCita,"La hora de fin de la cita debe ser mayor a la de inicio");
+    const horasValidas = horaValida && horaFinValida && validarHoras(inputHoraInicioCita,inputHoraFinCita,labelErrorHoraFinCita,"La hora de fin de la cita debe ser mayor a la de inicio");
     const medicoValido = validarCampoObligatorio(inputMedicoCita,labelErrorMedicoCita,"El médico es obligatorio");
     const pacienteValido = validarCampoObligatorio(inputPacienteCita,labelErrorPacienteCita,"El paciente es obligatorio");
 
     // Si todas las validaciones son correctas, se devuelve true y se puede enviar el formulario al servidor
-    if (fechaValida && horaValida && atencionCitaValida && horaFinValida && horasValidas && medicoValido && pacienteValido) {
+    if (fechaValida && atencionCitaValida && horasValidas && medicoValido && pacienteValido) {
         // mostrarMensajeExito(); 
         // const formulario = document.getElementById('formMedico'); 
         // formulario.scrollIntoView({ behavior: "smooth", block: "start" });        
@@ -361,8 +361,8 @@ function validarCamposCitaAlCambiarFoco() {
     const labelErrorMedicoCita=document.getElementById('errorMedicoCita');
     const labelErrorPacienteCita=document.getElementById('errorPacienteCita');
 
-    inputFechaCita.addEventListener('blur',()=> validarCampoObligatorio(inputFechaCita,labelErrorFechaCita,'La fecha de la cita es obligatoria') && validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy"));
-    inputHoraInicioCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraInicioCita, labelErrorHoraInicioCita, 'La hora de la cita es obligatoria.'));
+    inputFechaCita.addEventListener('change',()=> validarFecha(inputFechaCita,inputHoraInicioCita,inputHoraFinCita,labelErrorFechaCita,"La cita no puede ser anterior a hoy"));
+    inputHoraInicioCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraInicioCita, labelErrorHoraInicioCita, 'La hora de la cita es obligatoria.') && validarAtencionCita(inputFechaCita,inputHoraInicioCita,labelErrorHoraInicioCita,'La cita debe programarse con al menos 3 horas de anticipación'));
     inputHoraFinCita.addEventListener('blur', () => validarCampoObligatorio(inputHoraFinCita, labelErrorHoraFinCita, 'La hora final de la cita es obligatoria.'));
     inputMedicoCita.addEventListener('blur', () => validarCampoObligatorio(inputMedicoCita,labelErrorMedicoCita,"El médico es obligatorio"));
     inputPacienteCita.addEventListener('blur', () => validarCampoObligatorio(inputPacienteCita,labelErrorPacienteCita,"El paciente es obligatorio"));
